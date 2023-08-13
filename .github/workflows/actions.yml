@@ -19,6 +19,7 @@ jobs:
     env:
       KERAS_BACKEND: ${{ matrix.backend }}
     steps:
+
       - name: Check out
         uses: actions/checkout@v3
 
@@ -30,15 +31,15 @@ jobs:
             applications:
               - 'keras_core/applications/**'
 
+      - name: Install poetry
+        run: pipx install poetry
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           cache: 'poetry'
           cache-dependency-path: poetry.lock
-
-      - name: Install poetry
-        run: pipx install poetry
 
       - name: Install dependencies
         run: |
@@ -56,7 +57,12 @@ jobs:
     name: Check the code format
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: pipx install poetry
 
       - name: Set up Python
         uses: actions/setup-python@v4
