@@ -7,7 +7,7 @@ readme = "README.md"
 license = "Apache-2.0"
 repository = "https://github.com/keras-team/keras-core"
 homepage = ""
-packages = [{include = "keras_core"}]
+packages = [{include = "my_real_package", format = "wheel"}]
 exclude = ["*_test.py"]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -25,12 +25,22 @@ classifiers = [
 ]
 
 
+[tool.poetry.build]
+generate-setup-file = false
+script = "build.py"
+
+[build-system]
+requires = [
+    "poetry-core",
+]
+build-backend = "poetry.core.masonry.api"
+
+
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
 absl-py = "^1.4.0"
 numpy = "^1.24"
 rich = "^13.5.2"
-namex = "^0.0.7"
 h5py = "^3.9.0"
 dm-tree = "^0.1.8"
 
@@ -62,11 +72,6 @@ isort = "^5.12.0"
 flake8-pyproject = "^1.2.3"
 
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-
 [tool.pytest.ini_options]
 addopts = "-vv"
 filterwarnings = [
@@ -83,6 +88,7 @@ filterwarnings = [
 # Do not run tests in the `build` folders
 norecursedirs = ["build"]
 
+
 [tool.coverage.report]
 exclude_lines = [
     "pragma: no cover",
@@ -90,6 +96,7 @@ exclude_lines = [
     "raise NotImplementedError",
 ]
 omit = ["*_test.py"]
+
 
 [tool.flake8]
 max-line-length = 80
