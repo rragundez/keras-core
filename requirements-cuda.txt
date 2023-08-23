@@ -13,6 +13,3 @@ torchvision==0.15.2+cu118
 # Pin the version used in colab currently (works with tf cuda version).
 --find-links https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 jax[cuda11_pip]==0.4.10
-
-# Common deps.
--r requirements-common.txt

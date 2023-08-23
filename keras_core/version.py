@@ -1,2 +1,6 @@
-# Unique source of truth for the version number.
-__version__ = "0.1.4"
+from importlib import metadata
+
+try:
+    __version__ = metadata.version(__name__)
+except metadata.PackageNotFoundError as error:
+    __version__ = str(error)

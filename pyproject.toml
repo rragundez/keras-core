@@ -1,5 +1,135 @@
+[tool.poetry]
+name = "keras-core"
+version = "0.1.4"
+description="Multi-backend Keras."
+authors = ["Keras team <keras-users@googlegroups.com>"]
+readme = "README.md"
+license = "Apache-2.0"
+repository = "https://github.com/keras-team/keras-core"
+homepage = ""
+packages = [{include = "my_real_package", format = "wheel"}]
+exclude = ["*_test.py"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3 :: Only",
+  "Operating System :: Unix",
+  "Operating System :: MacOS",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development",
+]
+
+
+[tool.poetry.build]
+generate-setup-file = false
+script = "build.py"
+
+[build-system]
+requires = [
+    "poetry-core",
+]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+absl-py = "^1.4.0"
+numpy = "^1.24"
+rich = "^13.5.2"
+h5py = "^3.9.0"
+dm-tree = "^0.1.8"
+
+
+[tool.poetry.group.dev.dependencies]
+scipy = "^1.11"
+pandas = "^2.0.3"
+requests = "^2.31.0"
+google = "^3.0.0"
+protobuf = "^4.24.0"
+tensorboard-plugin-profile = "^2.13.1"
+build = "^0.10.0"
+tensorflow = "^2.13.0"
+tensorflow-macos = {version = "^2.13.0", platform = "darwin"}
+torch = ">=2.0.0, !=2.0.1"
+torchvision = "^0.15.1"
+jax = {version = "^0.4.14", extras = ["cpu"]}
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+
+
+[tool.poetry.group.linting.dependencies]
+black = "^23.7.0"
+flake8 = "^6.1.0"
+isort = "^5.12.0"
+flake8-pyproject = "^1.2.3"
+
+
+[tool.pytest.ini_options]
+addopts = "-vv"
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning",
+    "ignore::ImportWarning",
+    "ignore::RuntimeWarning",
+    "ignore::PendingDeprecationWarning",
+    "ignore::FutureWarning",
+    "ignore::UserWarning",
+    # Ignore a spurious warning on tf-nightly related to save model changes.
+    "ignore:Custom mask layers require a config",
+]
+# Do not run tests in the `build` folders
+norecursedirs = ["build"]
+
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "@abstract",
+    "raise NotImplementedError",
+]
+omit = ["*_test.py"]
+
+
+[tool.flake8]
+max-line-length = 80
+ignore = [
+    # Conflicts with black
+    "E203",
+    # defaults flake8 ignores
+    "E121","E123","E126","E226","E24","E704","W503","W504",
+    # Function name should be lowercase
+    "N802",
+    # lowercase ... imported as non lowercase
+    # Useful to ignore for "import keras.backend as K"
+    "N812",
+    # do not use bare 'except'
+    "E722",
+    # too many "#"
+    "E266",
+]
+exclude = [
+  "*_pb2.py",
+  "*_pb2_grpc.py",
+]
+# imported but unused in __init__.py, that's ok.
+per-file-ignores = [
+    # import not used
+    "**/__init__.py:F401",
+    "**/random.py:F401",
+]
+
+
 [tool.black]
 line-length = 80
+
 
 [tool.isort]
 profile = "black"
